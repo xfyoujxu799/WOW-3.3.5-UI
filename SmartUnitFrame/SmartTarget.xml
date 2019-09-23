@@ -1,0 +1,242 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/FrameXML/UI.xsd">
+	<Script file="SmartTarget.lua"/>
+
+	<Frame name="SmartTargetFrame" parent="TargetFrame" setAllPoints="true">
+		<Size>
+			<AbsDimension x="232" y="100"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame name="SmartTargetTextureFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="SmartTargetHealthBarText" inherits="SmartStatusBarText" JustifyH="CENTER" />
+						<FontString name="SmartTargetManaBarText" inherits="SmartStatusBarText" JustifyH="CENTER" />
+						<FontString name="SmartTargetHealthPercent" inherits="SmartStatusBarText" JustifyH="CENTER" />
+						<FontString name="SmartTargetManaPercent" inherits="SmartStatusBarText" JustifyH="CENTER" />
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						SmartTargetTextureFrame:SetFrameLevel(TargetFrame:GetFrameLevel()+1);
+						SmartTargetHealthBarText:ClearAllPoints();
+						SmartTargetHealthBarText:SetPoint("CENTER",TargetFrameHealthBar,"CENTER",0,1);
+						SmartTargetManaBarText:ClearAllPoints();
+						SmartTargetManaBarText:SetPoint("CENTER",TargetFrameManaBar,"CENTER",0,0);
+						SmartTargetHealthPercent:ClearAllPoints();
+						SmartTargetHealthPercent:SetPoint("CENTER",TargetFrameHealthBar,"LEFT",-20,1);
+						SmartTargetManaPercent:ClearAllPoints();
+						SmartTargetManaPercent:SetPoint("CENTER",TargetFrameManaBar,"LEFT",-20,0);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="TargetFrameGroupIndicator" setAllPoints="true" hidden="true">
+				<Size>
+					<AbsDimension x="74" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="4" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="TargetFrameGroupIndicatorLeft" file="Interface\CharacterFrame\UI-CharacterFrame-GroupIndicator">
+							<Size>
+								<AbsDimension x="24" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+							</Anchors>
+							<TexCoords left="0" right="0.1875" top="0" bottom="1"/>
+						</Texture>
+						<Texture name="TargetFrameGroupIndicatorRight" file="Interface\CharacterFrame\UI-CharacterFrame-GroupIndicator">
+							<Size>
+								<AbsDimension x="24" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"/>
+							</Anchors>
+							<TexCoords left="0.53125" right="0.71875" top="0" bottom="1"/>
+						</Texture>
+						<Texture name="TargetFrameGroupIndicatorMiddle" file="Interface\CharacterFrame\UI-CharacterFrame-GroupIndicator">
+							<Size>
+								<AbsDimension x="0" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="TargetFrameGroupIndicatorLeft" relativePoint="RIGHT"/>
+								<Anchor point="RIGHT" relativeTo="TargetFrameGroupIndicatorRight" relativePoint="LEFT"/>
+							</Anchors>
+							<TexCoords left="0.1875" right="0.53125" top="0" bottom="1"/>
+						</Texture>
+						<FontString name="TargetFrameGroupIndicatorText" inherits="GameFontNormalSmall" JustifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="-2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:SetFrameLevel(TargetFrame:GetFrameLevel());
+						getglobal(self:GetName().."Left"):SetAlpha(0.3);
+						getglobal(self:GetName().."Right"):SetAlpha(0.3);
+						getglobal(self:GetName().."Middle"):SetAlpha(0.3);
+						getglobal(self:GetName().."Text"):SetAlpha(0.7);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="TargetFrameClassIndicator" setAllPoints="true" hidden="true">
+				<Size>
+					<AbsDimension x="74" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-97" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="TargetFrameClassIndicatorLeft" file="Interface\CharacterFrame\UI-CharacterFrame-GroupIndicator">
+							<Size>
+								<AbsDimension x="24" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+							</Anchors>
+							<TexCoords left="0" right="0.1875" top="0" bottom="1"/>
+						</Texture>
+						<Texture name="TargetFrameClassIndicatorRight" file="Interface\CharacterFrame\UI-CharacterFrame-GroupIndicator">
+							<Size>
+								<AbsDimension x="24" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"/>
+							</Anchors>
+							<TexCoords left="0.53125" right="0.71875" top="0" bottom="1"/>
+						</Texture>
+						<Texture name="TargetFrameClassIndicatorMiddle" file="Interface\CharacterFrame\UI-CharacterFrame-GroupIndicator">
+							<Size>
+								<AbsDimension x="0" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="TargetFrameClassIndicatorLeft" relativePoint="RIGHT"/>
+								<Anchor point="RIGHT" relativeTo="TargetFrameClassIndicatorRight" relativePoint="LEFT"/>
+							</Anchors>
+							<TexCoords left="0.1875" right="0.53125" top="0" bottom="1"/>
+						</Texture>
+						<FontString name="TargetFrameClassIndicatorText" inherits="GameFontNormalSmall" JustifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="-2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:SetFrameLevel(TargetFrame:GetFrameLevel());
+						getglobal(self:GetName().."Left"):SetAlpha(0.3);
+						getglobal(self:GetName().."Right"):SetAlpha(0.3);
+						getglobal(self:GetName().."Middle"):SetAlpha(0.3);
+						getglobal(self:GetName().."Text"):SetAlpha(0.7);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="TargetFrameAggroIndicator" setAllPoints="true" hidden="true">
+				<Size>
+					<AbsDimension x="72" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativeTo="TargetFrameClassIndicator" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString name="TargetFrameAggroIndicatorText" inherits="GameFontNormalSmall" JustifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="0" y="-2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:SetFrameLevel(TargetFrame:GetFrameLevel());
+						self:SetFrameStrata("HIGH");
+						self.alert = false;
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				SmartTarget_OnLoad(self, unit, menuFunc);
+			</OnLoad>
+			<OnEvent>
+				SmartTarget_OnEvent(self, event);
+			</OnEvent>
+			<OnUpdate>
+				SmartTarget_OnUpdate(self, elapsed)
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+
+	<Frame name="SmartTargetPortraitDamage" parent="TargetFrame" toplevel="true" movable="false" frameStrata="HIGH">
+		<Frames>
+			<Frame setAllPoints="true">
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="SmartTargetHitIndicator" hidden="true" inherits="NumberFontNormalHuge">
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="TargetPortrait" relativePoint="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:RegisterEvent("UNIT_COMBAT");
+				self:RegisterEvent("PLAYER_TARGET_CHANGED");
+				CombatFeedback_Initialize(self, SmartTargetHitIndicator, 28);
+				SmartTargetHitIndicator:SetPoint("CENTER", TargetFrame.portrait, "CENTER")
+			</OnLoad>
+			<OnEvent>
+				SmartTargetHitIndicator_OnEvent(self, event)
+			</OnEvent>
+			<OnUpdate>
+				SmartTargetHitIndicator_OnUpdate(self, elapsed)
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,1358 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/FrameXML/UI.xsd">
+	<Script file="SmartToT.lua"/>
+	<Button name="SmartToTBuffButtonTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="12" y="12"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon" setAllPoints="true"/>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="$parentCount" inherits="SmartStatusBarText">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				if ( GameTooltip:IsOwned(self) ) then
+					GameTooltip:SetUnitBuff("targettarget", self:GetID());
+				end
+			</OnUpdate>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetUnitBuff("targettarget", self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="SmartToTDebuffButtonTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="12" y="12"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon" setAllPoints="true"/>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorder" file="Interface\Buttons\UI-Debuff-Overlays">
+					<Size>
+						<AbsDimension x="14" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.296875" right="0.5703125" top="0" bottom="0.515625"/>
+				</Texture>
+				<FontString name="$parentCount" inherits="SmartStatusBarText">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				if ( GameTooltip:IsOwned(self) ) then
+					GameTooltip:SetUnitDebuff("targettarget", self:GetID());
+				end
+			</OnUpdate>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetUnitDebuff("targettarget", self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="SmartToTFrame" toplevel="true" movable="true" inherits="SecureUnitButtonTemplate" parent="TargetFrame" hidden="true">
+		<Size>
+			<AbsDimension x="93" y="45"/>
+		</Size>
+		<HitRectInsets>
+			<AbsInset left="0" right="0" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT">
+				<Offset>
+					<AbsDimension x="-8" y="-18"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="SmartToTBackground">
+					<Size>
+						<AbsDimension x="49" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">	
+							<Offset>
+								<AbsDimension x="42" y="13"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+				<Texture name="SmartToTPortrait">
+					<Size>
+						<AbsDimension x="38" y="38"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="4" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="SmartToTTextureFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="SmartToTRaidTargetIcon" file="Interface\TargetingFrame\UI-RaidTargetingIcons" hidden="true">
+							<Size>
+								<AbsDimension x="16" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" RelativeTo="SmartToTPortrait" RelativePoint="TOP">
+									<Offset>
+										<AbsDimension x="0" y="2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture name="SmartToTFactionGroupIcon" file="Interface\TargetingFrame\UI-PVP-FFA" hidden="true">
+							<Size>
+								<AbsDimension x="40" y="40"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" RelativeTo="SmartToTPortrait" RelativePoint="LEFT">
+									<Offset>
+										<AbsDimension x="8" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture name="SmartToTClassIcon">
+							<Size>
+								<AbsDimension x="24" y="24"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" RelativeTo="SmartToTPortrait" RelativePoint="TOPRIGHT">
+									<Offset>
+										<AbsDimension x="-1" y="-5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="BORDER">
+						<Texture name="SmartToTTexture" file="Interface\TargetingFrame\UI-TargetofTargetFrame">
+							<TexCoords left="0.015625" right="0.7265625" top="0" bottom="0.703125"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						RaiseFrameLevel(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<StatusBar name="SmartToTHealthBar">
+				<Size>
+					<AbsDimension x="46" y="8"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnValueChanged>
+						UnitFrameHealthBar_OnValueChanged(self, value);
+						SmartToT_HealthCheck(self, value);
+					</OnValueChanged>
+				</Scripts>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+			</StatusBar>
+			<StatusBar name="SmartToTManaBar">
+				<Size>
+					<AbsDimension x="46" y="7"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-23"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="0" g="0" b="1.0"/>
+			</StatusBar>
+			<Frame name="SmartToTStatusTextFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="SmartToTName" inherits="GameFontNormalSmall" justifyH="LEFT">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="45" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTLevelText" inherits="GameFontNormalSmall" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" RelativeTo="SmartToTName" RelativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="-1" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTEliteText" inherits="GameFontNormalSmall" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" RelativeTo="SmartToTLevelText" RelativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTStatusText" inherits="GameFontNormalSmall" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="22" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTHealthPercent" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="35" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTManaPercent" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="65" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTHealthBarText" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="94" y="7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTManaBarText" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="SmartToTHealthBarText">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTHealthLoss" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="SmartToTHealthBar" relativePoint="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						RaiseFrameLevel(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Button name="SmartToTFrameDebuff1" inherits="SmartToTDebuffButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrame" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="162" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff2" inherits="SmartToTDebuffButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff3" inherits="SmartToTDebuffButtonTemplate" id="3">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff4" inherits="SmartToTDebuffButtonTemplate" id="4">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff3" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff5" inherits="SmartToTDebuffButtonTemplate" id="5">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff4" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff6" inherits="SmartToTDebuffButtonTemplate" id="6">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff5" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff7" inherits="SmartToTDebuffButtonTemplate" id="7">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff6" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff8" inherits="SmartToTDebuffButtonTemplate" id="8">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff7" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff9" inherits="SmartToTDebuffButtonTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="SmartToTFrameDebuff1" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff10" inherits="SmartToTDebuffButtonTemplate" id="10">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff9" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff11" inherits="SmartToTDebuffButtonTemplate" id="11">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff10" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff12" inherits="SmartToTDebuffButtonTemplate" id="12">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff11" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff13" inherits="SmartToTDebuffButtonTemplate" id="13">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff12" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff14" inherits="SmartToTDebuffButtonTemplate" id="14">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff13" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff15" inherits="SmartToTDebuffButtonTemplate" id="15">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff14" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameDebuff16" inherits="SmartToTDebuffButtonTemplate" id="16">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameDebuff15" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff1" inherits="SmartToTBuffButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="SmartToTFrame" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="50" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff2" inherits="SmartToTBuffButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff3" inherits="SmartToTBuffButtonTemplate" id="3">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff4" inherits="SmartToTBuffButtonTemplate" id="4">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff3" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff5" inherits="SmartToTBuffButtonTemplate" id="5">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff4" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff6" inherits="SmartToTBuffButtonTemplate" id="6">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff5" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff7" inherits="SmartToTBuffButtonTemplate" id="7">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff6" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff8" inherits="SmartToTBuffButtonTemplate" id="8">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff7" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff9" inherits="SmartToTBuffButtonTemplate" id="9">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff8" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff10" inherits="SmartToTBuffButtonTemplate" id="10">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff9" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff11" inherits="SmartToTBuffButtonTemplate" id="11">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff10" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff12" inherits="SmartToTBuffButtonTemplate" id="12">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff11" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff13" inherits="SmartToTBuffButtonTemplate" id="13">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff12" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff14" inherits="SmartToTBuffButtonTemplate" id="14">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff13" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff15" inherits="SmartToTBuffButtonTemplate" id="15">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff14" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTFrameBuff16" inherits="SmartToTBuffButtonTemplate" id="16">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTFrameBuff15" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Frame name="SmartToTFrameDropDown" inherits="UIDropDownMenuTemplate" id="1" hidden="true">
+				<Size>
+					<AbsDimension x="10" y="10"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="10" y="-40"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						SmartToTFrameDropDown_OnLoad(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				SmartToTFrame_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				SmartToTFrame_OnEvent(self, event);
+			</OnEvent>
+			<OnUpdate>
+				if self:IsVisible() then
+					--UnitFrame_OnUpdate(arg1)
+					SmartToT_OnUpdate(self, arg1)
+					SmartToT_StatusUpdate(self, arg1)
+				end
+			</OnUpdate>
+			<OnEnter>
+				UnitFrame_OnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				UnitFrame_OnLeave(self)
+			</OnLeave>
+			<OnShow>
+				SmartToT_Update(self)
+			</OnShow>
+			<OnHide>
+				SmartToT_OnHide(self)
+			</OnHide>
+		</Scripts>
+	</Button>
+
+	<Button name="SmartToTRelocator" parent="SmartToTFrame" movable="true" framestrata="HIGH">
+		<Size>
+			<AbsDimension x="93" y="45"/>
+		</Size>
+		<HitRectInsets>
+			<AbsInset left="44" right="0" top="32" bottom="0"/>
+		</HitRectInsets>
+		<Anchors>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentHitRect" hidden="true">
+					<Size>
+						<AbsDimension x="48" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-1" y="-15"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				SmartUnitFrameRelocator_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				SmartUnitFrameRelocator_OnLeave(self);
+			</OnLeave>
+			<OnMouseDown>
+				SmartUnitFrameRelocator_OnMouseDown(self, arg1);
+			</OnMouseDown>
+			<OnMouseUp>
+				SmartUnitFrameRelocator_OnMouseUp(self);
+			</OnMouseUp>
+		</Scripts>
+	</Button>
+
+	<Button name="SmartToTTBuffButtonTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="12" y="12"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon" setAllPoints="true"/>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="$parentCount" inherits="SmartStatusBarText">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				if ( GameTooltip:IsOwned(self) ) then
+					GameTooltip:SetUnitBuff("targettargettarget", self:GetID());
+				end
+			</OnUpdate>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetUnitBuff("targettargettarget", self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="SmartToTTDebuffButtonTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="12" y="12"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon" setAllPoints="true"/>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorder" file="Interface\Buttons\UI-Debuff-Overlays">
+					<Size>
+						<AbsDimension x="14" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.296875" right="0.5703125" top="0" bottom="0.515625"/>
+				</Texture>
+				<FontString name="$parentCount" inherits="SmartStatusBarText">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				if ( GameTooltip:IsOwned(self) ) then
+					GameTooltip:SetUnitDebuff("targettargettarget", self:GetID());
+				end
+			</OnUpdate>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetUnitDebuff("targettargettarget", self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="SmartToTTFrame" toplevel="true" movable="true" inherits="SecureUnitButtonTemplate" parent="SmartToTFrame" hidden="true">
+		<Size>
+			<AbsDimension x="93" y="45"/>
+		</Size>
+		<HitRectInsets>
+			<AbsInset left="0" right="0" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="SmartToTFrame" relativePoint="BOTTOMLEFT">
+				<Offset>
+					<AbsDimension x="0" y="-10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="SmartToTTBackground">
+					<Size>
+						<AbsDimension x="49" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">	
+							<Offset>
+								<AbsDimension x="42" y="13"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+				<Texture name="SmartToTTPortrait">
+					<Size>
+						<AbsDimension x="38" y="38"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="4" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="SmartToTTTextureFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="SmartToTTRaidTargetIcon" file="Interface\TargetingFrame\UI-RaidTargetingIcons" hidden="true">
+							<Size>
+								<AbsDimension x="16" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" RelativeTo="SmartToTTPortrait" RelativePoint="TOP">
+									<Offset>
+										<AbsDimension x="0" y="2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture name="SmartToTTFactionGroupIcon" file="Interface\TargetingFrame\UI-PVP-FFA" hidden="true">
+							<Size>
+								<AbsDimension x="40" y="40"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" RelativeTo="SmartToTTPortrait" RelativePoint="LEFT">
+									<Offset>
+										<AbsDimension x="8" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture name="SmartToTTClassIcon">
+							<Size>
+								<AbsDimension x="24" y="24"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" RelativeTo="SmartToTTPortrait" RelativePoint="TOPRIGHT">
+									<Offset>
+										<AbsDimension x="-1" y="-5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="BORDER">
+						<Texture name="SmartToTTTexture" file="Interface\TargetingFrame\UI-TargetofTargetFrame">
+							<TexCoords left="0.015625" right="0.7265625" top="0" bottom="0.703125"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						RaiseFrameLevel(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<StatusBar name="SmartToTTHealthBar">
+				<Size>
+					<AbsDimension x="46" y="8"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnValueChanged>
+						UnitFrameHealthBar_OnValueChanged(self, value);
+						SmartToT_HealthCheck(self, value);
+					</OnValueChanged>
+				</Scripts>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+			</StatusBar>
+			<StatusBar name="SmartToTTManaBar">
+				<Size>
+					<AbsDimension x="46" y="7"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-23"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="0" g="0" b="1.0"/>
+			</StatusBar>
+			<Frame name="SmartToTTStatusTextFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="SmartToTTName" inherits="GameFontNormalSmall" justifyH="LEFT">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="45" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTLevelText" inherits="GameFontNormalSmall" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" RelativeTo="SmartToTTName" RelativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="-1" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTEliteText" inherits="GameFontNormalSmall" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" RelativeTo="SmartToTTLevelText" RelativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTStatusText" inherits="GameFontNormalSmall" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="22" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTHealthPercent" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="35" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTManaPercent" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="65" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTHealthBarText" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="94" y="7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTManaBarText" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="SmartToTTHealthBarText">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="SmartToTTHealthLoss" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="SmartToTTHealthBar" relativePoint="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						RaiseFrameLevel(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Button name="SmartToTTFrameDebuff1" inherits="SmartToTTDebuffButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrame" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="162" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff2" inherits="SmartToTTDebuffButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff3" inherits="SmartToTTDebuffButtonTemplate" id="3">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff4" inherits="SmartToTTDebuffButtonTemplate" id="4">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff3" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff5" inherits="SmartToTTDebuffButtonTemplate" id="5">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff4" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff6" inherits="SmartToTTDebuffButtonTemplate" id="6">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff5" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff7" inherits="SmartToTTDebuffButtonTemplate" id="7">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff6" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff8" inherits="SmartToTTDebuffButtonTemplate" id="8">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff7" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff9" inherits="SmartToTTDebuffButtonTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="SmartToTTFrameDebuff1" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff10" inherits="SmartToTTDebuffButtonTemplate" id="10">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff9" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff11" inherits="SmartToTTDebuffButtonTemplate" id="11">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff10" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff12" inherits="SmartToTTDebuffButtonTemplate" id="12">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff11" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff13" inherits="SmartToTTDebuffButtonTemplate" id="13">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff12" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff14" inherits="SmartToTTDebuffButtonTemplate" id="14">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff13" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff15" inherits="SmartToTTDebuffButtonTemplate" id="15">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff14" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameDebuff16" inherits="SmartToTTDebuffButtonTemplate" id="16">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameDebuff15" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff1" inherits="SmartToTTBuffButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="SmartToTTFrame" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="50" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff2" inherits="SmartToTTBuffButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff3" inherits="SmartToTTBuffButtonTemplate" id="3">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff4" inherits="SmartToTTBuffButtonTemplate" id="4">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff3" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff5" inherits="SmartToTTBuffButtonTemplate" id="5">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff4" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff6" inherits="SmartToTTBuffButtonTemplate" id="6">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff5" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff7" inherits="SmartToTTBuffButtonTemplate" id="7">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff6" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff8" inherits="SmartToTTBuffButtonTemplate" id="8">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff7" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff9" inherits="SmartToTTBuffButtonTemplate" id="9">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff8" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff10" inherits="SmartToTTBuffButtonTemplate" id="10">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff9" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff11" inherits="SmartToTTBuffButtonTemplate" id="11">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff10" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff12" inherits="SmartToTTBuffButtonTemplate" id="12">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff11" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff13" inherits="SmartToTTBuffButtonTemplate" id="13">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff12" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff14" inherits="SmartToTTBuffButtonTemplate" id="14">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff13" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff15" inherits="SmartToTTBuffButtonTemplate" id="15">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff14" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="SmartToTTFrameBuff16" inherits="SmartToTTBuffButtonTemplate" id="16">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="SmartToTTFrameBuff15" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Frame name="SmartToTTFrameDropDown" inherits="UIDropDownMenuTemplate" id="1" hidden="true">
+				<Size>
+					<AbsDimension x="10" y="10"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="10" y="-40"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						SmartToTTFrameDropDown_OnLoad(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				SmartToTTFrame_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				SmartToTTFrame_OnEvent(self, event);
+			</OnEvent>
+			<OnUpdate>
+				if self:IsVisible() then
+					--UnitFrame_OnUpdate(arg1)
+					SmartToT_OnUpdate(self, arg1)
+					SmartToT_StatusUpdate(self, arg1)
+				end
+			</OnUpdate>
+			<OnEnter>
+				UnitFrame_OnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				UnitFrame_OnLeave(self)
+			</OnLeave>
+			<OnShow>
+				SmartToT_Update(self)
+			</OnShow>
+			<OnHide>
+				SmartToT_OnHide(self)
+			</OnHide>
+		</Scripts>
+	</Button>
+	<Button name="SmartToTTRelocator" parent="SmartToTTFrame" movable="true" framestrata="HIGH">
+		<Size>
+			<AbsDimension x="93" y="45"/>
+		</Size>
+		<HitRectInsets>
+			<AbsInset left="44" right="0" top="32" bottom="0"/>
+		</HitRectInsets>
+		<Anchors>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnEnter>
+				SmartUnitFrameRelocator_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				SmartUnitFrameRelocator_OnLeave(self);
+			</OnLeave>
+			<OnMouseDown>
+				SmartUnitFrameRelocator_OnMouseDown(self, arg1);
+			</OnMouseDown>
+			<OnMouseUp>
+				SmartUnitFrameRelocator_OnMouseUp(self);
+			</OnMouseUp>
+		</Scripts>
+	</Button>
+</Ui>

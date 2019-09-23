@@ -1,0 +1,170 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/FrameXML/UI.xsd">
+	<Script file="SmartParty.lua"/>
+	
+	<!-- Party Frame Template -->
+	<Frame name="SmartPartyFrameTemplate" virtual="true">
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+			<Anchor point="BOTTOMRIGHT"/>
+		</Anchors>
+		<Frames>
+			<Frame setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentHealthLoss" inherits="SmartStatusBarText" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="18" y="7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentLevelText" inherits="GameFontNormalSmall" justifyH="RIGHT">
+							<Color r="1.0" g="0.82" b="0.0"/>
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT">
+									<Offset>
+										<AbsDimension x="-80" y="43"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentStatusText" inherits="GameFontNormalSmall" justifyH="CENTER" hidden="true">
+							<Color r="1.0" g="0.82" b="0"/>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="18" y="7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentHealthPercent" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="25" y="7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentManaPercent" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="55" y="7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentHealthBarText" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Color r="1.0" g="1" b="1"/>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="100" y="10"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentManaBarText" inherits="SmartStatusBarText" justifyH="RIGHT">
+							<Color r="1.0" g="0.82" b="0.0"/>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parentHealthBarText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+			<StatusBar name="$parentSpellBar" inherits="CastingBarFrameTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="116" y="10"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM">
+						<Offset>
+							<AbsDimension x="-15" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnShow>
+						SmartParty_Spellbar_OnShow(self);
+					</OnShow>
+					<OnLoad>
+						SmartParty_Spellbar_OnLoad(self);
+					</OnLoad>
+					<OnEvent>
+						SmartParty_Spellbar_OnEvent(self, event, ...);
+					</OnEvent>
+				</Scripts>
+			</StatusBar>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				SmartParty_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				SmartParty_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnUpdate>
+				if UnitExists(self.unit) then
+					SmartParty_OnUpdate(self, arg1);
+				end
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+	
+	<Frame name="SmartPartyFrame1" inherits="SmartPartyFrameTemplate" parent="PartyMemberFrame1" id="1"/>
+	<Frame name="SmartPartyFrame2" inherits="SmartPartyFrameTemplate" parent="PartyMemberFrame2" id="2"/>
+	<Frame name="SmartPartyFrame3" inherits="SmartPartyFrameTemplate" parent="PartyMemberFrame3" id="3"/>
+	<Frame name="SmartPartyFrame4" inherits="SmartPartyFrameTemplate" parent="PartyMemberFrame4" id="4"/>
+
+	<!-- Pet Frame Template -->
+	<Frame name="SmartPartyPetFrameTemplate" virtual="true">
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="52" y="0"/>
+				</Offset>
+			</Anchor>
+			<Anchor point="BOTTOMRIGHT"/>
+		</Anchors>
+		<Frames>
+			<Frame setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentHealthBarText" inherits="SmartStatusBarText">
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="TOPLEFT">
+									<Offset>
+										<AbsDimension x="43" y="-12"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				SmartPartyPet_OnLoad(self);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+
+	<Frame name="SmartPartyFrame1PetFrame" inherits="SmartPartyPetFrameTemplate" parent="PartyMemberFrame1PetFrame" id="1"/>
+	<Frame name="SmartPartyFrame2PetFrame" inherits="SmartPartyPetFrameTemplate" parent="PartyMemberFrame2PetFrame" id="2"/>
+	<Frame name="SmartPartyFrame3PetFrame" inherits="SmartPartyPetFrameTemplate" parent="PartyMemberFrame3PetFrame" id="3"/>
+	<Frame name="SmartPartyFrame4PetFrame" inherits="SmartPartyPetFrameTemplate" parent="PartyMemberFrame4PetFrame" id="4"/>
+</Ui>

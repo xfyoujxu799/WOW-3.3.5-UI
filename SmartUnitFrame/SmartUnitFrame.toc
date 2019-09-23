@@ -1,0 +1,21 @@
+﻿## Interface: 30300
+## Title: SUF
+## Title-zhTW: |r|cff00CC33[頭像]|r sUF - 頭像核心
+## Title-zhCN: |r|cff00CC33[头像]|r sUF - 头像核心
+## Notes: 'Player', 'Target', 'Party', 'ToT' and 'ToTT'
+## Notes-zhTW: 頭像介面全方位增強.
+## Notes-zhCN: 头像界面全方位增强.
+## X-Category: UnitFrame
+## OptionalDependencies: SmartConfigUI, SmartFocus, SmartGroupIcon, SmartClassIcon, SmartPVPIcon, SmartSetScale
+## SavedVariables: SUF_Config, SMART_PLAYER_Config, SMART_PET_Config, SMART_TARGET_Config, SMART_PARTY_Config, SMART_TOT_Config
+
+SmartLib.lua
+SmartFonts.xml
+SmartUnitFrame.lua
+SmartAura.xml
+SmartPlayer.xml
+SmartPet.xml
+SmartTarget.xml
+SmartParty.xml
+SmartToT.xml
+SmartPartyTarget.xml
